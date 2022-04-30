@@ -51,19 +51,19 @@
 }
 
 .collab__form-button {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-        button {
-            margin: 1rem;
-            margin-right: 0;
-            color: white;
-            background-color: rgb(39, 167, 39);
-            padding: 0.6rem;
-            border-radius: 0.7rem;
-            border: none;
-        }
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin: 1rem;
+    margin-right: 0;
+    color: white;
+    background-color: rgb(39, 167, 39);
+    padding: 0.6rem;
+    border-radius: 0.7rem;
+    border: none;
   }
+}
 
 .collab__list {
   width: 100%;
@@ -80,13 +80,51 @@
       justify-content: center;
       color: white;
       padding: 1.6rem;
-background: #8FBC8F;
-
+      background: #8fbc8f;
     }
   }
 }
 
-.infom__errors {
+.collab__errors {
   color: rgb(181, 18, 18);
   font-size: 85%;
+}
+
+.collab__modal {
+  text-align: center;
+  height: 50%;
+}
+
+.collab__modal-header {
+  font-size: 200%;
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+  p {
+    border-bottom: 1px solid purple;
+  }
+}
+.collab__modal-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  button {
+    width: 30%;
+
+    margin-left: auto;
+    margin-right: auto;
+    padding: .5rem;
+    color: white;
+    background-color: rgb(39, 167, 39);
+    border-radius: 10rem;
+    border: none;
+  }
+}
+
+.collab__contact-confirm {
+  height: 60%;
+  font-size: 140%;
+  color: purple;
+  margin-bottom: 1rem;
 }

@@ -2,8 +2,16 @@ import React, { useState } from "react";
 import Footer from "../ui/Footer";
 import Modal from "react-modal/lib/components/Modal";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import "../../styles/components/TechComponent.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+const validationSchema = Yup.object({
+  kilometers: Yup.string().required("Required. If none, impressive, you may set to 0"),
+  fastFashion: Yup.string().required("Required. If none, impressive, you may set to 0"),
+  flightHours: Yup.string().required("Required. If none, impressive, you may set to 0"),
+  meat: Yup.string().required("Required. If none, impressive, you may set to 0"),
+});
 
 const Tech = (props) => {
   Modal.setAppElement(document.getElementById("root"));
@@ -16,6 +24,7 @@ const Tech = (props) => {
       flightHours: "",
       meat: "",
     },
+    validationSchema,
     onSubmit: (values, { resetForm }) => {
       setAnswer(
         values.kilometers * 1.2 +
@@ -28,6 +37,9 @@ const Tech = (props) => {
       resetForm();
     },
   });
+
+  let answerMonth = answer * 4;
+  let answerYear = answer * 52;
 
   return (
     <React.Fragment>
@@ -58,6 +70,9 @@ const Tech = (props) => {
                   onChange={formik.handleChange}
                   className="form-control"
                 />
+                              {formik.errors.kilometers && formik.touched.kilometers ? (
+                <div className="tech__errors">{formik.errors.kilometers}</div>
+              ) : null}
               </div>
             </div>
             <div className="form-group">
@@ -72,6 +87,9 @@ const Tech = (props) => {
                   onChange={formik.handleChange}
                   className="form-control"
                 />
+                {formik.errors.fastFashion && formik.touched.fastFashion ? (
+                <div className="tech__errors">{formik.errors.fastFashion}</div>
+              ) : null}
               </div>
             </div>
             <div className="form-group">
@@ -86,6 +104,9 @@ const Tech = (props) => {
                   onChange={formik.handleChange}
                   className="form-control"
                 />
+                {formik.errors.flightHours && formik.touched.flightHours ? (
+                <div className="tech__errors">{formik.errors.flightHours}</div>
+              ) : null}
               </div>
             </div>
             <div className="form-group">
@@ -100,24 +121,69 @@ const Tech = (props) => {
                   onChange={formik.handleChange}
                   className="form-control"
                 />
+                {formik.errors.meat && formik.touched.meat ? (
+                <div className="tech__errors">{formik.errors.meat}</div>
+              ) : null}
               </div>
             </div>
             <div className="tech__form-buttons">
-              <button>Clear</button>
               <button type="submit">Check Footprint</button>
             </div>
           </form>
         </div>
         <div className="tech__modal">
-          <Modal isOpen={modalIsOpen}>
-            {answer}
-            <button
-              onClick={() => {
-                setModalIsOpen(false);
-              }}
-            >
-              close
-            </button>
+          <Modal
+            isOpen={modalIsOpen}
+            style={{
+              overlay: {
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: "white",
+                overlayClassName: "inform__modal-suggest",
+              },
+              content: {
+                position: "absolute",
+                top: "28%",
+                left: "10%",
+                right: "10%",
+                bottom: "25%",
+                border: "3px solid green",
+                background: "white",
+                overflow: "auto",
+                WebkitOverflowScrolling: "touch",
+                borderRadius: "10px",
+                outline: "none",
+                padding: "20px",
+              },
+            }}
+          >
+            <div className="tech__modal">
+              <div className="tech__modal-header">
+                <p>Water Footprint</p>
+              </div>
+              <div className="tech__modal-body">
+                <p className="tech__modal-text">
+                  Your weekly water footprint is {answer} gallons
+                </p>
+                <p className="tech__modal-text">
+                  Which is {answerMonth} over the course of a month
+                </p>
+                <p className="tech__modal-text">
+                  And {answerYear} over the course of a year
+                </p>
+                <button
+                  onClick={() => {
+                    setModalIsOpen(false);
+                  }}
+                  className="tech__modal-button"
+                >
+                  close
+                </button>
+              </div>
+            </div>
           </Modal>
         </div>
         <div className="tech__tools-container">

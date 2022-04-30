@@ -9,12 +9,12 @@ const validationSchema = Yup.object({
   name: Yup.string()
     .min(3, "Your name should have more than 3 characters")
     .required("Required"),
-  phoneNum: Yup.string()
-    .min(
-      9,
-      "Phone number should have more than 3 characters, please include country code"
-    )
-    .required("Required"),
+  // phoneNum: Yup.string()
+  //   .min(
+  //     9,
+  //     "Phone number should have more than 3 characters, please include country code"
+  //   )
+  //   .required("Required"),
   email: Yup.string().min(3, "Too short").required("Required"),
   message: Yup.string()
     .min(2, "You can do better than that")
@@ -68,7 +68,7 @@ const Collab = (props) => {
                 className="form-control"
               />
               {formik.errors.name && formik.touched.name ? (
-                <div className="infom__errors">{formik.errors.name}</div>
+                <div className="collab__errors">{formik.errors.name}</div>
               ) : null}
             </div>
             <div className="form-group">
@@ -80,9 +80,9 @@ const Collab = (props) => {
                 onChange={formik.handleChange}
                 className="form-control"
               />
-              {formik.errors.phoneNum && formik.touched.phoneNum ? (
-                <div className="infom__errors">{formik.errors.phoneNum}</div>
-              ) : null}
+              {/* {formik.errors.phoneNum && formik.touched.phoneNum ? (
+                <div className="collab__errors">{formik.errors.phoneNum}</div>
+              ) : null} */}
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
@@ -94,7 +94,7 @@ const Collab = (props) => {
                 className="form-control"
               />
               {formik.errors.email && formik.touched.email ? (
-                <div className="infom__errors">{formik.errors.email}</div>
+                <div className="collab__errors">{formik.errors.email}</div>
               ) : null}
             </div>
             <div className="form-group">
@@ -108,7 +108,7 @@ const Collab = (props) => {
                 className="form-control"
               />
               {formik.errors.message && formik.touched.message ? (
-                <div className="infom__errors">{formik.errors.message}</div>
+                <div className="collab__errors">{formik.errors.message}</div>
               ) : null}
             </div>
             <div className="collab__form-button">
@@ -117,18 +117,57 @@ const Collab = (props) => {
           </form>
         </div>
         <div className="collab__modal">
-          <Modal isOpen={modalIsOpen}>
-            <div>name={contact.name}</div>
+          <Modal
+            isOpen={modalIsOpen}
+            style={{
+              overlay: {
+                position: "fixed",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: "white",
+                overlayClassName: "inform__modal-suggest",
+              },
+              content: {
+                position: "absolute",
+                top: "28%",
+                left: "10%",
+                right: "10%",
+                bottom: "30%",
+                border: "3px solid green",
+                background: "white",
+                overflow: "auto",
+                WebkitOverflowScrolling: "touch",
+                borderRadius: "10px",
+                outline: "none",
+                padding: "20px",
+              },
+            }}
+          >
+            <div className="collab__modal">
+              <div className="collab__modal-header">
+                <p>Thanks for the collab, {contact.name}!</p>
+              </div>
+              <div className="collab__modal-body">
+                <div className="collab__contact-confirm">
+                  We'll contact you at {contact.email} {contact.phoneNum ? "or " +  contact.phoneNum : null} ASAP! 
+                </div>
+                <button
+                onClick={() => {
+                  setModalIsOpen(false);
+                }}
+              >
+                close
+              </button>
+              </div>
+
+            </div>
+
+            {/* <div>name={contact.name}</div>
             <div>number={contact.phoneNum}</div>
             <div>email={contact.email}</div>
-            <div>message={contact.message}</div>
-            <button
-              onClick={() => {
-                setModalIsOpen(false);
-              }}
-            >
-              close
-            </button>
+            <div>message={contact.message}</div> */}
           </Modal>
         </div>
         <div className="collab__list-container">

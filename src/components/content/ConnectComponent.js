@@ -27,6 +27,7 @@ const Connect = (props) => {
     //     </div>;
     //   });
     // }
+    //comment list to map
     return commentsArray.map((comment, id) => {
       if (comment.forum === forum) {
         return (

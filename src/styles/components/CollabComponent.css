@@ -108,11 +108,56 @@
           justify-content: center;
   color: white;
   padding: 1.6rem;
-  background: #8FBC8F;
+  background: #8fbc8f;
 }
 
-.infom__errors {
+.collab__errors {
   color: #b51212;
   font-size: 85%;
+}
+
+.collab__modal {
+  text-align: center;
+  height: 50%;
+}
+
+.collab__modal-header {
+  font-size: 200%;
+  width: 90%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.collab__modal-header p {
+  border-bottom: 1px solid purple;
+}
+
+.collab__modal-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+}
+
+.collab__modal-body button {
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: .5rem;
+  color: white;
+  background-color: #27a727;
+  border-radius: 10rem;
+  border: none;
+}
+
+.collab__contact-confirm {
+  height: 60%;
+  font-size: 140%;
+  color: purple;
+  margin-bottom: 1rem;
 }
 /*# sourceMappingURL=CollabComponent.css.map */

@@ -5,7 +5,7 @@ import { useFormik } from "formik";
 import "../../styles/components/ConnectComponent.css";
 
 const Connect = (props) => {
-  //imoprt comments data from shared folder
+  //import comments data from shared folder
   const commentsArray = COMMENTS;
 
   //state management

@@ -3,7 +3,13 @@ import Footer from "../ui/Footer";
 import Modal from "react-modal/lib/components/Modal";
 // import Modal from "react-modal";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import "../../styles/components/InformComponent.css";
+
+const validationSchema = Yup.object({
+  article: Yup.string().min(1, "Required").required("Required"),
+  link: Yup.string().min(1, "Required").required("Required"),
+});
 
 const Inform = (props) => {
   Modal.setAppElement(document.getElementById("root"));
@@ -14,9 +20,11 @@ const Inform = (props) => {
       article: "",
       link: "",
     },
+    validationSchema,
     onSubmit: (values, { resetForm }) => {
-      setModalTwoIsOpen(true);
       console.log(values);
+      setModalOneIsOpen(false);
+      setModalTwoIsOpen(true)
       resetForm();
     },
   });
@@ -77,7 +85,7 @@ const Inform = (props) => {
               top: "28%",
               left: "10%",
               right: "10%",
-              bottom: "20%",
+              bottom: "15%",
               border: "3px solid green",
               background: "white",
               overflow: "auto",
@@ -103,6 +111,9 @@ const Inform = (props) => {
               onChange={formik.handleChange}
               className="form-control"
             />
+            {formik.errors.article && formik.touched.article ? (
+              <div className="inform__errors">{formik.errors.article}</div>
+            ) : null}
             <label htmlFor="article" className="form-group">
               Link
             </label>
@@ -113,6 +124,9 @@ const Inform = (props) => {
               onChange={formik.handleChange}
               className="form-control"
             />
+            {formik.errors.link && formik.touched.link ? (
+              <div className="inform__errors">{formik.errors.link}</div>
+            ) : null}
             <div className="inform__modal-btn-group">
               <button
                 onClick={() => {
@@ -122,10 +136,7 @@ const Inform = (props) => {
                 close
               </button>
               <button
-                onClick={() => {
-                  setModalOneIsOpen(false);
-                  setModalTwoIsOpen(true);
-                }}
+                type="submit"
               >
                 submit
               </button>
@@ -147,9 +158,9 @@ const Inform = (props) => {
             content: {
               position: "absolute",
               top: "28%",
-              left: "10%",
-              right: "10%",
-              bottom: "20%",
+              left: "20%",
+              right: "20%",
+              bottom: "35%",
               border: "3px solid green",
               background: "white",
               overflow: "auto",
@@ -162,7 +173,7 @@ const Inform = (props) => {
         >
           <div className="inform__modal-suggest-response">
             <div>
-              Thank you for submitting {formik.values.article} and this 
+              Thank you for submitting this
               <a
                 href={formik.values.link}
                 target="_blank"
@@ -170,7 +181,8 @@ const Inform = (props) => {
               >
                 {" "}
                 INFO!
-              </a>, we will look into featuring it on the site
+              </a>
+              , we will look into featuring it on the site
             </div>
             <button
               onClick={() => {

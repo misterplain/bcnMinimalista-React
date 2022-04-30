@@ -1,7 +1,10 @@
 @import "../main.scss";
 
-.container-tech {
-  width: 95%;
+.tech-container {
+  width: 85%;
+  margin-right: auto;
+  margin-left: auto;
+  @include font;
 }
 
 .tech__title {

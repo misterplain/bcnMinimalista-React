@@ -1,8 +1,13 @@
 @import "../main.scss";
 
+.container-home {
+  @include font;
+}
+
 .home__card-row {
   height: 200px;
   position: relative;
+  margin: 1rem;
 }
 
 .home__card-body {
@@ -18,6 +23,6 @@
   margin-bottom: auto;
   color: white;
   text-align: right;
-  font-size: 170%;
+  font-size: 270%;
 }
 

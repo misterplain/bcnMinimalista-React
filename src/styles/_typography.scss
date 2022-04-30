@@ -1,1 +1,6 @@
-$font-color-test: blue;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap');
+
+@mixin font {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}

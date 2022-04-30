@@ -1,7 +1,8 @@
 @import "../main.scss";
 
-.container-inform {
+.connect-container{
   width: 95%;
+  @include font;
 }
 
 .connect__title {

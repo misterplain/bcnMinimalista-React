@@ -4,6 +4,7 @@
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
+  @include font;
 }
 
 .inform__title-btn {
@@ -108,10 +109,11 @@
 .inform__modal-suggest-response {
     justify-content: center;
     text-align: center;
+    font-size: 120%;
 
     button {
 
-        margin: .5rem;
+        margin: 2rem;
         padding: .5rem;
         color: white;
         background-color: rgb(39, 167, 39);
@@ -120,4 +122,10 @@
     }
 }
 
+.inform__errors {
+  color: rgb(181, 18, 18);
+  font-size: 85%;
+  width: 100%;
+  text-align: left;
+}
 

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap");
 *,
 *::after,
 *::before {
@@ -11,6 +12,8 @@
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
 }
 
 .inform__title-btn {
@@ -147,14 +150,22 @@
       -ms-flex-pack: center;
           justify-content: center;
   text-align: center;
+  font-size: 120%;
 }
 
 .inform__modal-suggest-response button {
-  margin: .5rem;
+  margin: 2rem;
   padding: .5rem;
   color: white;
   background-color: #27a727;
   border-radius: 10rem;
   border: none;
+}
+
+.inform__errors {
+  color: #b51212;
+  font-size: 85%;
+  width: 100%;
+  text-align: left;
 }
 /*# sourceMappingURL=InformComponent.css.map */

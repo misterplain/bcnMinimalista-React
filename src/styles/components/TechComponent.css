@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap");
 *,
 *::after,
 *::before {
@@ -7,8 +8,12 @@
           box-sizing: inherit;
 }
 
-.container-tech {
-  width: 95%;
+.tech-container {
+  width: 85%;
+  margin-right: auto;
+  margin-left: auto;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
 }
 
 .tech__title {

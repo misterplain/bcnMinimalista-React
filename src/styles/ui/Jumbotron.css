@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap");
 *,
 *::after,
 *::before {
@@ -15,6 +16,8 @@
           justify-content: flex-end;
   margin-bottom: 0;
   padding-bottom: 0px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
 }
 
 .jumbotron__content {

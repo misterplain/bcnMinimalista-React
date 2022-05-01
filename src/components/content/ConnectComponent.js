@@ -14,21 +14,13 @@ const Connect = (props) => {
     comment: "",
     forum: "all",
   });
+  const [all, setAll] = useState(commentsArray);
   const [commentList, setCommentList] = useState(commentsArray);
-  const [forum, setForum] = useState("all");
+  const [forum, setForum] = useState("");
 
   //set forum value in form / filter comments in comments list
   const filterItems = () => {
-    // if (formik.values.forum === "all") {
-    //   return commentsArray.map((comment, id) => {
-    //     <div key={id}>
-    //       <div>{comment.name}</div>
-    //       <div>{comment.message}</div>
-    //     </div>;
-    //   });
-    // }
-    //comment list to map
-    return commentsArray.map((comment, id) => {
+    return commentList.map((comment, id) => {
       if (comment.forum === forum) {
         return (
           <div key={id} className="connect__comment-body">
@@ -39,12 +31,18 @@ const Connect = (props) => {
             </div>
           </div>
         );
+      } else if (all) {
+        console.log(all)
+        return commentsArray.map((comment, id) => {
+          <div key={id}>{comment.message}</div>;
+        });
       }
     });
   };
 
   const addCommentHandler = (values) => {
     console.log(values);
+    setCommentList([...commentsArray, comment])
   };
 
   const formik = useFormik({
@@ -59,6 +57,7 @@ const Connect = (props) => {
         comment: values.comment,
         forum: values.forum,
       });
+      setComment(values.name,values.comment,values.forum)
       resetForm();
     },
   });
@@ -75,7 +74,7 @@ const Connect = (props) => {
               <button
                 className="connect__forum-option"
                 value="all"
-                onClick={(e) => setForum(e.target.value)}
+                onClick={(e) => setAll(commentsArray)}
               >
                 All
               </button>

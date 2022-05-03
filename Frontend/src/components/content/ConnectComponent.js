@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { COMMENTS } from "../../shared/comments";
 import Footer from "../ui/Footer";
 import { useFormik } from "formik";
@@ -9,11 +9,6 @@ const Connect = (props) => {
   const commentsArray = COMMENTS;
 
   //state management
-  const [comment, setComment] = useState({
-    name: "",
-    comment: "",
-    forum: "all",
-  });
   const [all, setAll] = useState(commentsArray);
   const [commentList, setCommentList] = useState(commentsArray);
   const [forum, setForum] = useState("");
@@ -31,19 +26,26 @@ const Connect = (props) => {
             </div>
           </div>
         );
-      } else if (all) {
-        console.log(all)
-        return commentsArray.map((comment, id) => {
-          <div key={id}>{comment.message}</div>;
-        });
       }
+      if (all === true) {
+        return (
+          <div key={id} className="connect__comment-body">
+            <div className="connect__comment-user">{comment.name}</div>
+            <div className="connect__comment-message">{comment.message}</div>
+            <div className="connect__comment-date">
+              Posted on {comment.date} to {comment.forum}
+            </div>
+          </div>
+        );
+      } 
     });
   };
 
-  const addCommentHandler = (values) => {
-    console.log(values);
-    setCommentList([...commentsArray, comment])
-  };
+  useEffect(() => {
+    console.log(forum);
+    console.log(formik.values);
+  }, [forum]);
+
 
   const formik = useFormik({
     initialValues: {
@@ -52,12 +54,8 @@ const Connect = (props) => {
       forum: "all",
     },
     onSubmit: (values, { resetForm }) => {
-      addCommentHandler({
-        name: values.name,
-        comment: values.comment,
-        forum: values.forum,
-      });
-      setComment(values.name,values.comment,values.forum)
+      setCommentList([...commentList, values]);
+      console.log(commentList);
       resetForm();
     },
   });
@@ -74,35 +72,61 @@ const Connect = (props) => {
               <button
                 className="connect__forum-option"
                 value="all"
-                onClick={(e) => setAll(commentsArray)}
+                onClick={(e) => {
+                  setForum(e.target.value);
+                  setAll(true);
+
+                  formik.setFieldValue("forum", e.target.value);
+                  console.log(forum);
+                }}
               >
                 All
               </button>
               <button
                 className="connect__forum-option"
                 value="chat"
-                onClick={(e) => setForum(e.target.value)}
+                onClick={(e) => {
+                  setForum(e.target.value);
+                  setAll(false);
+                  formik.setFieldValue("forum", e.target.value);
+                  console.log(forum);
+                }}
               >
                 Chat
               </button>
               <button
                 className="connect__forum-option"
                 value="events"
-                onClick={(e) => setForum(e.target.value)}
+                onClick={(e) => {
+                  setForum(e.target.value);
+                  setAll(false);
+                  formik.setFieldValue("forum", e.target.value);
+                  console.log(forum);
+                }}
               >
                 Events
               </button>
               <button
                 className="connect__forum-option"
                 value="trade"
-                onClick={(e) => setForum(e.target.value)}
+                onClick={(e) => {
+                  setForum(e.target.value);
+                  setAll(false);
+                  formik.setFieldValue("forum", e.target.value);
+                  console.log(forum);
+                }}
               >
                 Trade
               </button>
               <button
                 className="connect__forum-option"
                 value="other"
-                onClick={(e) => setForum(e.target.value)}
+                onClick={(e) => {
+                  setForum(e.target.value);
+                  setAll(false);
+                  formik.setFieldValue("forum", e.target.value);
+                  console.log(forum);
+                }}
               >
                 Other
               </button>
@@ -114,6 +138,7 @@ const Connect = (props) => {
                   type="text"
                   name="name"
                   value={formik.values.name}
+                  required={true}
                   onChange={formik.handleChange}
                   className="form-control"
                 />
@@ -121,17 +146,14 @@ const Connect = (props) => {
                 <input
                   type="text"
                   name="comment"
+                  required={true}
                   value={formik.values.comment}
                   onChange={formik.handleChange}
                   className="form-control"
                 />
               </div>
             </div>
-            <button
-              onClick={addCommentHandler}
-              type="submit"
-              className="connect__form-submit"
-            >
+            <button type="submit" className="connect__form-submit">
               submit
             </button>
           </form>

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { TOOLS } from "../../shared/tools";
 import Footer from "../ui/Footer";
 import Modal from "react-modal/lib/components/Modal";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "../../styles/components/TechComponent.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+const tools = TOOLS
 
 const validationSchema = Yup.object({
   kilometers: Yup.string().required("Required. If none, impressive, you may set to 0"),
@@ -187,7 +190,7 @@ const Tech = (props) => {
           </Modal>
         </div>
         <div className="tech__tools-container">
-          {props.tools.map((tools) => {
+          {tools.map((tools) => {
             return (
               <div key={tools.id} className="tech__tools-card">
                 <a href={tools.src} target="_blank" rel="noreferrer">

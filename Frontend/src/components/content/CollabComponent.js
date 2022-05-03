@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { COLLAB } from "../../shared/collab";
 import Footer from "../ui/Footer";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Modal from "react-modal/lib/components/Modal";
 import "../../styles/components/CollabComponent.css";
+
+const collab = COLLAB
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -175,7 +178,7 @@ const Collab = (props) => {
             <p>a big shout out to all our collaborators!</p>
           </div>
           <div className="collab__list">
-            {props.collab.map((collab) => {
+            {collab.map((collab) => {
               return (
                 <div key={collab.id} className="collab__list-card">
                   <a href={collab.src} target="_blank" rel="noreferrer">

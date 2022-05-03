@@ -1,8 +1,11 @@
 import React from "react";
+import { HOME } from "../../shared/home";
 import { Loading } from "../ui/Loading";
 import { Fade, Stagger } from "react-animation-components";
 import { NavLink } from "react-router-dom";
 import "../../styles/components/HomeComponent.css";
+
+const home = HOME
 
 const Home = (props) => {
   if (props.homeLoading) {
@@ -18,7 +21,7 @@ const Home = (props) => {
   return (
     <div className="container-home">
       <Stagger in>
-        {props.homeList.map((card) => {
+        {home.map((card) => {
           return (
             <Fade in key={card.id}>
               <NavLink to={card.link}>

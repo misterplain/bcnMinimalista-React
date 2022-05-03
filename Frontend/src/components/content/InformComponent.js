@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { INFORM } from "../../shared/inform";
 import Footer from "../ui/Footer";
 import Modal from "react-modal/lib/components/Modal";
 // import Modal from "react-modal";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "../../styles/components/InformComponent.css";
+
+const inform = INFORM
 
 const validationSchema = Yup.object({
   article: Yup.string().min(1, "Required").required("Required"),
@@ -47,7 +50,7 @@ const Inform = (props) => {
           </button>
         </div>
         <div className="inform__list-container">
-          {props.informList.map((inform) => {
+          {inform.map((inform) => {
             return (
               <div className="inform__list-row" key={inform.id}>
                 <img

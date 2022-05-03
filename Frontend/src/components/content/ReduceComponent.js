@@ -1,11 +1,17 @@
 import React, { useState } from "react";
+import { REDUCEPRODUCTS } from "../../shared/reduceproducts";
+import { REDUCETIPS } from "../../shared/reducetips";
+import { REDUCEWASTE } from "../../shared/reducewaste";
 import Footer from "../ui/Footer";
 import Marquee from "react-fast-marquee";
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import "../../styles/components/ReduceComponent.css";
 
+const reduceWaste = REDUCEWASTE
+const reduceTips = REDUCETIPS
+
 const Reduce = (props) => {
-  const product = props.products;
+  const product = REDUCEPRODUCTS;
   const [index, setIndex] = useState(0);
   const { title, price, src, site, description } = product[index];
 
@@ -62,7 +68,7 @@ const Reduce = (props) => {
           </div>
           <Marquee>
             {" "}
-            {props.waste.map((waste) => {
+            {reduceWaste.map((waste) => {
               return (
                 <div className="reduce__waste-card" key={waste.id}>
                   <a href={waste.site} target="_blank" rel="noreferrer">
@@ -83,7 +89,7 @@ const Reduce = (props) => {
         <div className="reduce__tips-marquee">
           <div className="reduce__tips-marquee-title">Tips</div>
           <Marquee>
-            {props.tips.map((tip) => {
+            {reduceTips.map((tip) => {
               return (
                 <div className="reduce__tips-card" key={tip.id}>
                   <div className="reduce__tips-cardtext">{tip.title}</div>

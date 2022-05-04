@@ -1,18 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const { check } = require('express-validator');
 
-const homeCardSchema = require("../models/home-card");
+const homeCardsControllers= require("../controllers/home-card-controllers");
 const router = express.Router();
 
-router.route("/").get((req, res) => {
-  homeCardSchema.find((error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      res.json(data);
-    }
-  });
-});
+router.get('/home', homeCardsControllers.getHomeCards)
+
+
 
 //export to app.js
 module.exports = router;

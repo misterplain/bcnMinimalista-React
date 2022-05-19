@@ -11,4 +11,6 @@ const homeCardSchema = new Schema({
 
 homeCardSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model("Home", homeCardSchema);
+const Home = mongoose.model('Home', homeCardSchema);
+
+module.exports = Home;

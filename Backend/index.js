@@ -1,23 +1,47 @@
+var createError = require("http-errors");
 //store express package in express const
 const express = require("express");
+var path = require("path");
+var cookieParser = require("cookie-parser");
+var logger = require("morgan");
+//middleware to pass data from backend to front end
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
 
 //import from other files, placesRoutes is now technically a middleware
-const homeCardRoutes = require("./routes/home-card-routes");
-const HttpError = require("./models/http-error");
+const homeRouter = require("./routes/home-card-routes");
+
+const mongoose = require("mongoose");
+
+const url =
+  "mongodb+srv://misterplain:b1SqnjEtBpdMLXnH@cluster0.wqros.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const connect = mongoose.connect(url, {
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+connect
+  .then(() => {
+    console.log("Connected to the database");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 const app = express();
+//specify which type of data to parse, could be text/html or form/data, url-encoded
 app.use(bodyParser.json());
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "jade");
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
 
 //use middleware
-app.use("/home", homeCardRoutes);
-
-//error middleware, only be executed on requests where there is an error
-app.use((req, res, next) => {
-  const error = new HttpError("Could not find this route.", 404);
-  throw error;
-});
+app.use("/home", homeRouter);
 
 //check if there is an error code, 500 as the fallback error code
 app.use((error, req, res, next) => {
@@ -28,14 +52,4 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" });
 });
 
-//connect to mongoose
-mongoose
-  .connect(
-    `mongodb+srv://misterplain:b1SqnjEtBpdMLXnH@cluster0.wqros.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
-  )
-  .then(() => {
-    app.listen(5000);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+app.listen(5000);

@@ -1,15 +1,16 @@
 const express = require("express");
-const uuid = require('uuid');
-const Home = require("../models/home-card");
-const homeCardRouter = express.Router();
+const router = express.Router();
+const Home = require("../models/home");
 
-//routes
+//import controllers
 
-homeCardRouter
+//route
+router
   .route("/")
   .get((req, res, next) => {
     Home.find()
       .then((home) => {
+        console.log("Homes fetched", home)
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
         res.json(home);
@@ -19,26 +20,25 @@ homeCardRouter
   .post((req, res, next) => {
     Home.create(req.body)
       .then((home) => {
-        console.log("Home card created", home);
+        console.log("Home created", home);
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.json(home);
+      })
+      .catch((err) => {
+        next(err);
+      });
+  })
+  .delete((req, res, next) => {
+    Home.deleteMany()
+      .then((home) => {
+        console.log("All home deleted");
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
         res.json(home);
       })
       .catch((err) => next(err));
-  })
-  .put((req, res) => {
-    res.statusCode = 403;
-    res.end("PUT operation not supported");
-  })
-  .delete((req, res, next) => {
-    Home.deleteMany()
-      .then((response) => {
-        res.statusCode = response.statusCode;
-        res.setHeader("Content-Type", "application/json");
-        res.json(response);
-      })
-      .catch((err) => next(err));
   });
 
-//export to app.js
-module.exports = homeCardRouter;
+module.exports = router;
+

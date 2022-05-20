@@ -1,55 +1,41 @@
-var createError = require("http-errors");
-//store express package in express const
 const express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-//middleware to pass data from backend to front end
+const morgan = require("morgan");
 const bodyParser = require("body-parser");
-
-//import from other files, placesRoutes is now technically a middleware
-const homeRouter = require("./routes/home-card-routes");
-
+const cors = require("cors");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-const url =
-  "mongodb+srv://misterplain:b1SqnjEtBpdMLXnH@cluster0.wqros.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const connect = mongoose.connect(url, {
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+//import routes
+const homeRoutes = require('./routes/home')
 
-connect
-  .then(() => {
-    console.log("Connected to the database");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
+//app
 const app = express();
-//specify which type of data to parse, could be text/html or form/data, url-encoded
-app.use(bodyParser.json());
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "jade");
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
 
-//use middleware
-app.use("/home", homeRouter);
+//mongoose
+mongoose
+  .connect(process.env.DATABASE)
+  .then(() => console.log("DB connected"))
+  .catch((err) => console.log("DB Error => ", err));
 
-//check if there is an error code, 500 as the fallback error code
-app.use((error, req, res, next) => {
-  if (res.headerSent) {
-    return next(error);
-  }
-  res.status(error.code || 500);
-  res.json({ message: error.message || "An unknown error occurred!" });
+  //the following was removed from connect as it was throwing an error
+// {
+//     useNewUrlParser: true,
+//     useCreateIndex: true,
+//     useFindAndModify: false,
+//     useUnifiedTopology: true,
+//   }
+
+//middleware
+app.use(cors()); //error handling
+app.use(morgan("dev")); //show you endpoints in the terminal
+app.use(bodyParser.json()); //request data in json format
+
+//post as middleware
+app.use('/home', homeRoutes)
+
+//listen so that app can return response on port, port info on env file
+const port = process.env.PORT || 8000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
 
-app.listen(5000);

@@ -20,7 +20,7 @@ class Jumbo extends Component {
   render() {
     return (
       <Jumbotron fluid className="jumbotron-container">
-        <NavLink to="/home">
+        <NavLink to="/">
           <div className="jumbotron__content">
             <div className="jumbotron__text">
               <h1>barcelona minimalista</h1>

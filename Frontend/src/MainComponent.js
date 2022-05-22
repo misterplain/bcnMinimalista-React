@@ -20,7 +20,7 @@ class Main extends Component {
         <Jumbo />
         <Switch>
           <Route exact path="/" default render={() => <Home />} />
-          <Route path="/home" default render={() => <Home />} />
+          {/* <Route path="/home" default render={() => <Home />} /> */}
           <div>
             <NavBar />
             <Route path="/inform" render={() => <Inform />} />

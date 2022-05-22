@@ -31,7 +31,7 @@ app.use(morgan("dev")); //show you endpoints in the terminal
 app.use(bodyParser.json()); //request data in json format
 
 //post as middleware
-app.use('/home', homeRoutes)
+app.use('/', homeRoutes)
 
 //listen so that app can return response on port, port info on env file
 const port = process.env.PORT || 8000;

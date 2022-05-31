@@ -13,10 +13,10 @@ const Home = (props) => {
 
   const fetchHomeCards = () => {
     axios
-      .get(`${process.env.REACT_API_API}/`)
+      .get(`${process.env.REACT_API_API}/home`)
       .then((response) => {
         console.log(response);
-        setHomeCard(response);
+        setHomeCard(response.data);
       })
       .catch((error) => {
         alert("Error in fetching Home Card Info", error);
@@ -59,7 +59,7 @@ const Home = (props) => {
         })}
       </Stagger>
       <h1>BACKEND TEST</h1>
-      {JSON.stringify(homeCard)}
+      {homeCard}
     </div>
   );
 };

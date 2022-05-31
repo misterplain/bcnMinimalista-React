@@ -6,15 +6,15 @@ const Home = require("../models/home");
 
 //route
 router
-  .route("/")
+  .route("/home")
   .get((req, res, next) => {
-    Home.find()
-      .then((home) => {
-        console.log("Homes fetched", home)
-        res.statusCode = 200;
-        res.setHeader("Content-Type", "application/json");
-        res.json(home);
-      })
+    Home.find({})
+        .limit(10)
+        .sort({ createdAt: -1 })
+        .exec((err, posts) => {
+            if (err) console.log(err);
+            res.json(home);
+        })
       .catch((err) => next(err));
   })
   .post((req, res, next) => {

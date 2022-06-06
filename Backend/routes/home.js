@@ -6,15 +6,16 @@ const Home = require("../models/home");
 
 //route
 router
-  .route("/home")
+  .route("/")
   .get((req, res, next) => {
+    console.log("Home Route");
     Home.find({})
-        .limit(10)
-        .sort({ createdAt: -1 })
-        .exec((err, posts) => {
-            if (err) console.log(err);
-            res.json(home);
-        })
+      .then((home) => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        console.log(home);
+        res.json(home);
+      })
       .catch((err) => next(err));
   })
   .post((req, res, next) => {
@@ -41,4 +42,3 @@ router
   });
 
 module.exports = router;
-

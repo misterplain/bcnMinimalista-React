@@ -13,10 +13,10 @@ const Home = (props) => {
 
   const fetchHomeCards = () => {
     axios
-      .get(`${process.env.REACT_API_API}/home`)
+      .get(`${process.env.REACT_APP_API}/`)
       .then((response) => {
-        console.log(response);
-        setHomeCard(response.data);
+        console.log(response.data);
+        setHomeCard(response);
       })
       .catch((error) => {
         alert("Error in fetching Home Card Info", error);

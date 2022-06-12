@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { INFORM } from "../../shared/inform";
 import Footer from "../ui/Footer";
 import Modal from "react-modal/lib/components/Modal";
 // import Modal from "react-modal";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import axios from "axios";
 import "../../styles/components/InformComponent.css";
 
-const inform = INFORM
+const inform = INFORM;
 
 const validationSchema = Yup.object({
   article: Yup.string().min(1, "Required").required("Required"),
@@ -18,6 +19,24 @@ const Inform = (props) => {
   Modal.setAppElement(document.getElementById("root"));
   const [modalOneIsOpen, setModalOneIsOpen] = useState(false);
   const [modalTwoIsOpen, setModalTwoIsOpen] = useState(false);
+  const [blogPost, setBlogPost] = useState([]);
+
+  const fetchBlogPosts = () => {
+    axios
+      .get(`${process.env.REACT_APP_API}/v1/api/blog`)
+      .then((response) => {
+        console.log(response.data);
+        setBlogPost(response.data);
+      })
+      .catch((error) => {
+        alert("Error in fetching Blog Post Info", error);
+      });
+  };
+
+  useEffect(() => {
+    fetchBlogPosts();
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       article: "",
@@ -27,42 +46,63 @@ const Inform = (props) => {
     onSubmit: (values, { resetForm }) => {
       console.log(values);
       setModalOneIsOpen(false);
-      setModalTwoIsOpen(true)
+      setModalTwoIsOpen(true);
       resetForm();
     },
   });
   return (
     <React.Fragment>
-      <div className="container-inform">
-        <div className="inform__title-btn">
-          <div className="inform__title">
-            <p className="inform__title-text">news in local waste reduction</p>
+      <div className='container-inform'>
+        <div className='inform__title-btn'>
+          <div className='inform__title'>
+            <p className='inform__title-text'>news in local waste reduction</p>
           </div>
 
           <button
             onClick={() => setModalOneIsOpen(true)}
-            className="inform__modal-btn"
-            color="success"
+            className='inform__modal-btn'
+            color='success'
             outline
-            id="suggestButton"
+            id='suggestButton'
           >
             Suggest article
           </button>
         </div>
-        <div className="inform__list-container">
+        <div className='inform__list-container'>
           {inform.map((inform) => {
             return (
-              <div className="inform__list-row" key={inform.id}>
+              <div className='inform__list-row' key={inform.id}>
                 <img
                   src={inform.img}
                   alt={inform.alt}
-                  className="inform__list-img"
+                  className='inform__list-img'
                 />
 
-                <div className="inform__list-body">
-                  <a href={inform.src} target="_blank" rel="noreferrer">
-                    <p className="inform__list-body-header">{inform.title}</p>
-                    <p className="inform__list-body-caption">
+                <div className='inform__list-body'>
+                  <a href={inform.src} target='_blank' rel='noreferrer'>
+                    <p className='inform__list-body-header'>{inform.title}</p>
+                    <p className='inform__list-body-caption'>
+                      {inform.caption}
+                    </p>
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+          <h1>BACKEND TEST - SUCCESSFUL</h1>
+          {blogPost.map((inform) => {
+            return (
+              <div className='inform__list-row' key={inform.id}>
+                <img
+                  src={inform.img}
+                  alt={inform.alt}
+                  className='inform__list-img'
+                />
+
+                <div className='inform__list-body'>
+                  <a href={inform.src} target='_blank' rel='noreferrer'>
+                    <p className='inform__list-body-header'>{inform.title}</p>
+                    <p className='inform__list-body-caption'>
                       {inform.caption}
                     </p>
                   </a>
@@ -101,36 +141,36 @@ const Inform = (props) => {
         >
           <form
             onSubmit={formik.handleSubmit}
-            className="inform__modal-suggest"
+            className='inform__modal-suggest'
           >
-            <label htmlFor="article" className="form-group">
+            <label htmlFor='article' className='form-group'>
               Article Description
             </label>
             <textarea
-              type="text"
-              name="article"
-              rows="5"
+              type='text'
+              name='article'
+              rows='5'
               value={formik.values.article}
               onChange={formik.handleChange}
-              className="form-control"
+              className='form-control'
             />
             {formik.errors.article && formik.touched.article ? (
-              <div className="inform__errors">{formik.errors.article}</div>
+              <div className='inform__errors'>{formik.errors.article}</div>
             ) : null}
-            <label htmlFor="article" className="form-group">
+            <label htmlFor='article' className='form-group'>
               Link
             </label>
             <input
-              type="text"
-              name="link"
+              type='text'
+              name='link'
               value={formik.values.link}
               onChange={formik.handleChange}
-              className="form-control"
+              className='form-control'
             />
             {formik.errors.link && formik.touched.link ? (
-              <div className="inform__errors">{formik.errors.link}</div>
+              <div className='inform__errors'>{formik.errors.link}</div>
             ) : null}
-            <div className="inform__modal-btn-group">
+            <div className='inform__modal-btn-group'>
               <button
                 onClick={() => {
                   setModalOneIsOpen(false);
@@ -138,11 +178,7 @@ const Inform = (props) => {
               >
                 close
               </button>
-              <button
-                type="submit"
-              >
-                submit
-              </button>
+              <button type='submit'>submit</button>
             </div>
           </form>
         </Modal>
@@ -174,12 +210,12 @@ const Inform = (props) => {
             },
           }}
         >
-          <div className="inform__modal-suggest-response">
+          <div className='inform__modal-suggest-response'>
             <div>
               Thank you for submitting this
               <a
                 href={formik.values.link}
-                target="_blank"
+                target='_blank'
                 style={{ color: "green" }}
               >
                 {" "}

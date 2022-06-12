@@ -7,6 +7,10 @@ require("dotenv").config();
 
 //import routes
 const homeRoutes = require('./routes/home')
+const userRoutes = require('./routes/users')
+const authRoutes = require('./routes/auth')
+const blogRoutes = require('./routes/blog')
+
 
 //app
 const app = express();
@@ -24,6 +28,10 @@ app.use(bodyParser.json()); //request data in json format
 
 //post as middleware
 app.use('/v1/api', homeRoutes)
+app.use('/v1/api/users', userRoutes)
+app.use('/v1/api/auth', authRoutes)
+app.use('/v1/api/blog', blogRoutes)
+
 
 //listen so that app can return response on port, port info on env file
 const port = process.env.PORT || 8000;

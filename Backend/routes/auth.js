@@ -1,23 +1,35 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
 const { check, validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const bcrypt = require("bcryptjs");
+
 const User = require("../models/user");
 
-//@route POST api/users
-//@desc Register User
+//@route GET api/auth
+//@desc Test route
+//@access Public
+router.get("/", auth, async (req, res) => {
+  //return user data
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+//@route POST api/auth
+//@desc Authenticate user and get token
 //@access Public
 router.post(
   "/",
   [
-    check("username", "Username is required").not().isEmpty(),
     check("email", "Please include a valid email").isEmail(),
-    check(
-      "password",
-      "Please enter a password with 6 or more characters"
-    ).isLength({ min: 6 }),
+    check("password", "Password is required").exists(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -26,30 +38,25 @@ router.post(
     }
 
     //descructure request.body so you don't have to keep defining it
-    const { username, email, password } = req.body;
+    const { email, password } = req.body;
 
     try {
       //see if user exists
       let user = await User.findOne({ email });
-      if (user) {
+      if (!user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: "User already exists" }] });
+          .json({ errors: [{ msg: "Invalid Credentials" }] });
       }
 
+      //make sure password matches
+      const isMatch = await bcrypt.compare(password, user.password);
 
-      user = new User({
-        username,
-        email,
-        password,
-      });
-
-      //encrypt the password using bcrypt, create salt and then hash it
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
-
-      //save user to database
-      await user.save();
+      if (!isMatch) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "Invalid Credentials" }] });
+      }
 
       //return jsonwebtoken
       const payload = {
@@ -69,7 +76,6 @@ router.post(
         }
       );
 
-    //   res.send("User registered");
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");

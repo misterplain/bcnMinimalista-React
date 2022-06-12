@@ -13,9 +13,9 @@ const Home = (props) => {
 
   const fetchHomeCards = () => {
     axios
-      .get(`${process.env.REACT_API_API}/home`)
+      .get(`${process.env.REACT_APP_API}/v1/api/`)
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setHomeCard(response.data);
       })
       .catch((error) => {
@@ -58,8 +58,24 @@ const Home = (props) => {
           );
         })}
       </Stagger>
-      <h1>BACKEND TEST</h1>
-      {homeCard}
+      <h1>BACKEND TEST - SUCCESSFUL</h1>
+      {homeCard.map((card) => {
+        return (
+          <Fade in key={card.id}>
+          <NavLink to={card.link}>
+            <div
+              className="home__card-row"
+              style={{ backgroundImage: `url(${card.src})` }}
+            >
+              <div className="home__card-body">
+                <p className="home__card-text"> {card.name}</p>
+                {/* <img src={card.src} alt="" className="home__card-img" /> */}
+              </div>
+            </div>
+          </NavLink>
+        </Fade>
+        )}
+      )}
     </div>
   );
 };

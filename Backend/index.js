@@ -17,25 +17,16 @@ mongoose
   .then(() => console.log("DB connected"))
   .catch((err) => console.log("DB Error => ", err));
 
-  //the following was removed from connect as it was throwing an error
-// {
-//     useNewUrlParser: true,
-//     useCreateIndex: true,
-//     useFindAndModify: false,
-//     useUnifiedTopology: true,
-//   }
-
 //middleware
 app.use(cors()); //error handling
 app.use(morgan("dev")); //show you endpoints in the terminal
 app.use(bodyParser.json()); //request data in json format
 
 //post as middleware
-app.use('/api', homeRoutes)
+app.use('/v1/api', homeRoutes)
 
 //listen so that app can return response on port, port info on env file
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-

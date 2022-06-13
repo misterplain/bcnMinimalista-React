@@ -69,6 +69,5 @@
   "devDependencies": {
     "@types/reactstrap": "^8.7.2",
     "lite-server": "^2.6.1"
-  },
-  "proxy": "http://localhost:3000"
+  }
 }

@@ -1,14 +1,6 @@
 import React, { Component } from "react";
-import {
-  Navbar,
-  Nav,
-  NavbarToggler,
-  Collapse,
-  NavItem,
-  Container,
-} from "reactstrap";
+import { Navbar, NavbarToggler, Collapse } from "reactstrap";
 import { NavLink } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/ui/NavBar.css";
 
 class NavBar extends Component {
@@ -28,35 +20,41 @@ class NavBar extends Component {
   }
   render() {
     return (
-      <Navbar expand="sm" sticky="top" className="navbar-container">
+      <Navbar expand='sm' sticky='top' className='navbar-container'>
         <NavbarToggler
           onClick={this.toggleNav}
-          className="navbar__toggler fa-bars"
+          className='navbar__toggler fa-bars'
         />
 
         <Collapse isOpen={this.state.isNavOpen} navbar>
-          <div className="navbar__nav">
-            <NavLink className="navbar__navitem" to="/inform">
+          <div className='navbar__nav'>
+            <NavLink className='navbar__navitem' to='/inform'>
               inform
             </NavLink>
 
-            <NavLink className="navbar__navitem" to="/connect">
+            <NavLink className='navbar__navitem' to='/connect'>
               connect
             </NavLink>
 
-            <NavLink className="navbar__navitem" to="/reduce">
+            <NavLink className='navbar__navitem' to='/reduce'>
               reduce
             </NavLink>
 
-            <NavLink className="navbar__navitem" to="/tech">
+            <NavLink className='navbar__navitem' to='/tech'>
               tech and tools
             </NavLink>
-            <NavLink className="navbar__navitem" to="/rescue">
+            <NavLink className='navbar__navitem' to='/rescue'>
               rescue
             </NavLink>
 
-            <NavLink className="navbar__navitemv" to="/collab">
+            <NavLink className='navbar__navitem' to='/collab'>
               collab
+            </NavLink>
+            <NavLink className='navbar__navitem' to='/login'>
+              Login
+            </NavLink>
+            <NavLink className='navbar__navitem' to='/register'>
+              Register
             </NavLink>
           </div>
         </Collapse>

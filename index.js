@@ -3,7 +3,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config();
+const config = require("dotenv").config();
 
 //import routes
 const homeRoutes = require('./routes/home')

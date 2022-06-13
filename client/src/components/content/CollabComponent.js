@@ -3,10 +3,16 @@ import { COLLAB } from "../../shared/collab";
 import Footer from "../ui/Footer";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+//redux
+import { connect } from "react-redux";
+import { setAlert } from "../../actions/alert";
+import PropTypes from "prop-types";
+
 import Modal from "react-modal/lib/components/Modal";
 import "../../styles/components/CollabComponent.css";
+import Connect from "./ConnectComponent";
 
-const collab = COLLAB
+const collab = COLLAB;
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -48,78 +54,92 @@ const Collab = (props) => {
       resetForm();
     },
   });
+
+  const triggerAlert = () => {
+    props.setAlert(
+      "THIS IS AN ALERT TEST AND IT WORKED!",
+      "success"
+    );
+  };
   return (
     <React.Fragment>
-      <div className="collab-container">
-        <div className="collab__title">
-          <div className="collab__title-text">
+      <div className='collab-container'>
+        <div className='collab__title'>
+          <div className='collab__title-text'>
             <p>share your ideas</p>
           </div>
-          <div className="collab__title-caption">
+          <div className='collab__title-caption'>
             <p>We'd love to hear from you!</p>
           </div>
         </div>
-        <div className="collab__form-container">
+        <div className='collab__form-button'>
+          <button
+            onClick={() => {
+              triggerAlert();
+            }}
+          >ALERT TEST</button>
+        </div>
+        <div className='collab__form-container'>
           <form onSubmit={formik.handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">Name</label>
+            <div className='form-group'>
+              <label htmlFor='name'>Name</label>
               <input
-                type="text"
-                name="name"
+                type='text'
+                name='name'
                 value={formik.values.name}
                 onChange={formik.handleChange}
-                className="form-control"
+                className='form-control'
               />
               {formik.errors.name && formik.touched.name ? (
-                <div className="collab__errors">{formik.errors.name}</div>
+                <div className='collab__errors'>{formik.errors.name}</div>
               ) : null}
             </div>
-            <div className="form-group">
-              <label htmlFor="phone">Phone (optional)</label>
+            <div className='form-group'>
+              <label htmlFor='phone'>Phone (optional)</label>
               <input
-                type="number"
-                name="phoneNum"
+                type='number'
+                name='phoneNum'
                 value={formik.values.phoneNum}
                 onChange={formik.handleChange}
-                className="form-control"
+                className='form-control'
               />
               {/* {formik.errors.phoneNum && formik.touched.phoneNum ? (
                 <div className="collab__errors">{formik.errors.phoneNum}</div>
               ) : null} */}
             </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
+            <div className='form-group'>
+              <label htmlFor='email'>Email</label>
               <input
-                type="text"
-                name="email"
+                type='text'
+                name='email'
                 value={formik.values.email}
                 onChange={formik.handleChange}
-                className="form-control"
+                className='form-control'
               />
               {formik.errors.email && formik.touched.email ? (
-                <div className="collab__errors">{formik.errors.email}</div>
+                <div className='collab__errors'>{formik.errors.email}</div>
               ) : null}
             </div>
-            <div className="form-group">
-              <label htmlFor="message">Enter your message here</label>
+            <div className='form-group'>
+              <label htmlFor='message'>Enter your message here</label>
               <textarea
-                type="text"
-                name="message"
-                rows="4"
+                type='text'
+                name='message'
+                rows='4'
                 value={formik.values.message}
                 onChange={formik.handleChange}
-                className="form-control"
+                className='form-control'
               />
               {formik.errors.message && formik.touched.message ? (
-                <div className="collab__errors">{formik.errors.message}</div>
+                <div className='collab__errors'>{formik.errors.message}</div>
               ) : null}
             </div>
-            <div className="collab__form-button">
-              <button type="submit">Send Feedback</button>
+            <div className='collab__form-button'>
+              <button type='submit'>Send Feedback</button>
             </div>
           </form>
         </div>
-        <div className="collab__modal">
+        <div className='collab__modal'>
           <Modal
             isOpen={modalIsOpen}
             style={{
@@ -148,23 +168,23 @@ const Collab = (props) => {
               },
             }}
           >
-            <div className="collab__modal">
-              <div className="collab__modal-header">
+            <div className='collab__modal'>
+              <div className='collab__modal-header'>
                 <p>Thanks for the collab, {contact.name}!</p>
               </div>
-              <div className="collab__modal-body">
-                <div className="collab__contact-confirm">
-                  We'll contact you at {contact.email} {contact.phoneNum ? "or " +  contact.phoneNum : null} ASAP! 
+              <div className='collab__modal-body'>
+                <div className='collab__contact-confirm'>
+                  We'll contact you at {contact.email}{" "}
+                  {contact.phoneNum ? "or " + contact.phoneNum : null} ASAP!
                 </div>
                 <button
-                onClick={() => {
-                  setModalIsOpen(false);
-                }}
-              >
-                close
-              </button>
+                  onClick={() => {
+                    setModalIsOpen(false);
+                  }}
+                >
+                  close
+                </button>
               </div>
-
             </div>
 
             {/* <div>name={contact.name}</div>
@@ -173,16 +193,16 @@ const Collab = (props) => {
             <div>message={contact.message}</div> */}
           </Modal>
         </div>
-        <div className="collab__list-container">
-          <div className="collab__list-header">
+        <div className='collab__list-container'>
+          <div className='collab__list-header'>
             <p>a big shout out to all our collaborators!</p>
           </div>
-          <div className="collab__list">
+          <div className='collab__list'>
             {collab.map((collab) => {
               return (
-                <div key={collab.id} className="collab__list-card">
-                  <a href={collab.src} target="_blank" rel="noreferrer">
-                    <p className="collab__list-card-text">{collab.name}</p>
+                <div key={collab.id} className='collab__list-card'>
+                  <a href={collab.src} target='_blank' rel='noreferrer'>
+                    <p className='collab__list-card-text'>{collab.name}</p>
                   </a>
                 </div>
               );
@@ -195,4 +215,9 @@ const Collab = (props) => {
   );
 };
 
-export default Collab;
+Collab.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+}
+
+
+export default connect(null, { setAlert })(Collab);

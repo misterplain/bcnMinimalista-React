@@ -9,6 +9,10 @@ import Collab from "./components/content/CollabComponent";
 import Jumbo from "./components/ui/Jumbotron";
 import NavBar from "./components/ui/NavBar";
 import { Switch, Route } from "react-router-dom";
+//redux
+import { Provider } from "react-redux";
+import store from "./store";
+import Alert from "./components/ui/alert";
 
 class Main extends Component {
   constructor(props) {
@@ -17,21 +21,24 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <Jumbo />
-        <Switch>
-          <Route exact path="/" default render={() => <Home />} />
-          {/* <Route path="/home" default render={() => <Home />} /> */}
-          <div>
-            <NavBar />
-            <Route path="/inform" render={() => <Inform />} />
-            <Route path="/connect" render={() => <Connect />} />
-            <Route path="/reduce" render={() => <Reduce />} />
-            <Route path="/tech" render={() => <Tech />} />
+        <Provider store={store}>
+          <Jumbo />
+          <Alert />
+          <Switch>
+            <Route exact path='/' default render={() => <Home />} />
+            {/* <Route path="/home" default render={() => <Home />} /> */}
+            <div>
+              <NavBar />
+              <Route path='/inform' render={() => <Inform />} />
+              <Route path='/connect' render={() => <Connect />} />
+              <Route path='/reduce' render={() => <Reduce />} />
+              <Route path='/tech' render={() => <Tech />} />
 
-            <Route path="/rescue" component={Rescue} />
-            <Route path="/collab" render={() => <Collab />} />
-          </div>
-        </Switch>
+              <Route path='/rescue' component={Rescue} />
+              <Route path='/collab' render={() => <Collab />} />
+            </div>
+          </Switch>
+        </Provider>
       </div>
     );
   }

@@ -27,10 +27,33 @@
   display: flex;
 }
 
-.navbar__toggler {
-  border: 1px solid black;
+.navbar__nav-collapse {
+  width: 100%;
+  color: black;
+  height: 200px;
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.navbar__toggler, .navbar__toggler:active, .navbar__toggler:visited,
+.navbar__toggler:focus {
+  outline: none;
   float: right;
   margin-left: auto;
   border: none;
+  outline: none;
+  text-decoration: none;
 }
 /*# sourceMappingURL=NavBar.css.map */

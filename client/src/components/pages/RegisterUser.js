@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
+import "../../styles/components/RegisterComponent.css";
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   }
 
   return (
-    <section className='container'>
+    <section className='register__container'>
       <h1 className=''>Sign Up</h1>
       <p className=''>Create Your Account</p>
       <form onSubmit={(e) => onSubmit(e)}>
@@ -63,7 +64,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             onChange={(e) => onChange(e)}
           />
         </div>
-        <input type='submit' className='btn btn-primary' value='Register' />
+        <input type='submit' className='auth-form-button' value='Register' />
       </form>
       <p className=''>
         Already have an account? <Link to='/login'>Sign In</Link>

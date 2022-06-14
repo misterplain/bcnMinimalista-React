@@ -1,0 +1,16 @@
+{
+    "version": 3,
+    "mappings": "AMAA,OAAO,CAAC,gFAAI;AFAZ,AAAA,CAAC;AACD,CAAC,AAAA,OAAO;AACR,CAAC,AAAA,QAAQ,CAAC;EACR,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC;EACV,UAAU,EAAE,OAAO;CACpB;;AJJD,AAAA,iBAAiB,CAAA;EACb,KAAK,EAAE,GAAG;EACV,WAAW,EAAE,IAAI;EACjB,YAAY,EAAE,IAAI;EAClB,UAAU,EAAE,IAAI;EMHhB,WAAW,EAAE,wBAAwB;EACrC,WAAW,EAAE,IAAI;CNMpB;;AAED,AAAA,iBAAiB,CAAA;EACb,MAAM,EAAE,eAAe;EACvB,OAAO,EAAE,GAAG;EACZ,aAAa,EAAE,GAAG;CAErB;;AAED,AAAA,iBAAiB,CAAC,IAAI,CAAA;EAClB,aAAa,EAAE,IAAI;CACtB",
+    "sources": [
+        "LoginComponent.scss",
+        "../main.scss",
+        "../_animations.scss",
+        "../_functions.scss",
+        "../_global.scss",
+        "../_mixins.scss",
+        "../_typography.scss",
+        "../_variables.scss"
+    ],
+    "names": [],
+    "file": "LoginComponent.css"
+}

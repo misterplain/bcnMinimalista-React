@@ -4,6 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
+import "../../styles/components/LoginComponent.css";
 
 const Login = ({login, isAuthenticated}) => {
 
@@ -30,7 +31,7 @@ const Login = ({login, isAuthenticated}) => {
   }
 
   return (
-    <section className='container'>
+    <section className='login__container'>
       <h1>Login</h1>
       <form  onSubmit={e=>onSubmit(e)}>
         <div className='form-group'>
@@ -49,12 +50,12 @@ const Login = ({login, isAuthenticated}) => {
             type='password'
             className='form-control'
             name='password'
-            placeholder='Password'
+
             value={password}
             onChange={(e) => onChange(e)}
           />
         </div>
-        <button type='submit' className='btn btn-primary'>
+        <button type='submit' className='auth-form-button'>
           Submit
         </button>
       </form>

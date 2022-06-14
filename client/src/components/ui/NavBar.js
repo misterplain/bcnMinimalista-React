@@ -8,47 +8,36 @@ import { logout } from "../../actions/auth";
 import "../../styles/ui/NavBar.css";
 
 const NavBar = ({ auth: { isAuthenticated, loading }, logout }) => {
-  // constructor(props) {
-  //   super(props);
-  //   //binds the function to component, when togglenav is called the this keyword will refer corectly to component
-  //   this.toggleNav = this.toggleNav.bind(this);
-  //   this.state = {
-  //     isNavOpen: false,
-  //   };
-  // }
+  const [isOpen, setIsOpen] = useState(false);
 
-  // toggleNav() {
-  //   this.setState({
-  //     isNavOpen: !this.state.isNavOpen,
-  //   });
-  // }
-
-  //reintegrate toggle nav functionality
+  const toggleNavbar = () => {
+    setIsOpen(!isOpen);
+  };
   const authLinks = (
-    <ul>
-      <li>
-        <a onClick={logout} href='#!'>
-          <i className='fas fa-sign-out-alt'></i>{" "}
-          <span className='hide-sm'>Logout</span>
-        </a>
-      </li>
-    </ul>
+    <NavLink
+      onClick={logout}
+      className='navbar__navitem auth-button'
+      to='/inform'
+    >
+      Logout
+    </NavLink>
   );
 
   const guestLinks = (
-    <ul>
-      <li>
-        <h6>example guest links</h6>
-      </li>
-    </ul>
+    <NavLink className='navbar__navitem auth-button' to='/login'>
+      Login
+    </NavLink>
   );
 
   return (
-    <Navbar expand='sm' sticky='top' className='navbar-container'>
-      <NavbarToggler className='navbar__toggler fa-bars' />
+    <Navbar expand='md' sticky='top' className='navbar-container' style={{display: 'flex'}}>
+      <NavbarToggler
+        className='navbar__toggler fa fa-bars fa-border-none'
+        onClick={toggleNavbar}
+      />
 
-      <Collapse navbar>
-        <div className='navbar__nav'>
+      <Collapse isOpen={isOpen} navbar>
+        <div className={!isOpen ? 'navbar__nav' : 'navbar__nav-collapse'} style={{flexDirection: isOpen ? 'column' : 'row'}}>
           <NavLink className='navbar__navitem' to='/inform'>
             inform
           </NavLink>
@@ -71,12 +60,7 @@ const NavBar = ({ auth: { isAuthenticated, loading }, logout }) => {
           <NavLink className='navbar__navitem' to='/collab'>
             collab
           </NavLink>
-          <NavLink className='navbar__navitem' to='/login'>
-            Login
-          </NavLink>
-          <NavLink className='navbar__navitem' to='/register'>
-            Register
-          </NavLink>
+
           {!loading && (
             <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
           )}

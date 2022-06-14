@@ -55,7 +55,7 @@ const Inform = (props) => {
       <div className='container-inform'>
         <div className='inform__title-btn'>
           <div className='inform__title'>
-            <p className='inform__title-text'>news in local waste reduction</p>
+            <p className='inform__title-text'> news in local waste reduction</p>
           </div>
 
           <button

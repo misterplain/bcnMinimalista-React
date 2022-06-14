@@ -1,0 +1,16 @@
+{
+    "version": 3,
+    "mappings": "AMAA,OAAO,CAAC,gFAAI;AFAZ,AAAA,CAAC;AACD,CAAC,AAAA,OAAO;AACR,CAAC,AAAA,QAAQ,CAAC;EACR,MAAM,EAAE,CAAC;EACT,OAAO,EAAE,CAAC;EACV,UAAU,EAAE,OAAO;CACpB;;AJJD,AAAA,oBAAoB,CAAA;EAChB,KAAK,EAAE,GAAG;EACV,WAAW,EAAE,IAAI;EACjB,YAAY,EAAE,IAAI;EAClB,UAAU,EAAE,IAAI;EMHhB,WAAW,EAAE,wBAAwB;EACrC,WAAW,EAAE,IAAI;CNIpB;;AAED,AAAA,iBAAiB,CAAA;EACb,MAAM,EAAE,eAAe;EACvB,OAAO,EAAE,GAAG;EACZ,aAAa,EAAE,GAAG;CAErB;;AAED,AAAA,oBAAoB,CAAC,IAAI,CAAA;EACrB,aAAa,EAAE,IAAI;CACtB",
+    "sources": [
+        "RegisterComponent.scss",
+        "../main.scss",
+        "../_animations.scss",
+        "../_functions.scss",
+        "../_global.scss",
+        "../_mixins.scss",
+        "../_typography.scss",
+        "../_variables.scss"
+    ],
+    "names": [],
+    "file": "RegisterComponent.css"
+}

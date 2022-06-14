@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 //routing
 import { BrowserRouter } from "react-router-dom";
 import { Switch, Route, NavLink } from "react-router-dom";
@@ -21,34 +21,42 @@ import { Button } from "@mui/material";
 import { Provider } from "react-redux";
 import store from "./store";
 import Alert from "./components/ui/alert";
+import { loadUser } from "./actions/auth";
+import setAuthToken from "./utils/setAuthToken";
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Provider store={store}>
-          <Jumbo />
-          <Alert />
-          <Switch>
-            <Route exact path='/' default render={() => <Home />} />
-            {/* <Route path="/home" default render={() => <Home />} /> */}
-            <div>
-              <NavBar />
-              <Route path='/inform' render={() => <Inform />} />
-              <Route path='/connect' render={() => <Connect />} />
-              <Route path='/reduce' render={() => <Reduce />} />
-              <Route path='/tech' render={() => <Tech />} />
-              <Route path='/rescue' render={() => <Rescue />} />
-              <Route path='/collab' render={() => <Collab />} />
-              <Route path='/login' render={() => <Login />} />
-              <Route path='/register' render={() => <Register />} />
-
-            </div>
-          </Switch>
-        </Provider>
-      </BrowserRouter>
-    );
-  }
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
 }
+
+const App = () => {
+  //when the state updates, this will be a constant loop unless we give it a separate parameter, empty parameters
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <Provider store={store}>
+        <Jumbo />
+        <Alert />
+        <Switch>
+          <Route exact path='/' default render={() => <Home />} />
+          {/* <Route path="/home" default render={() => <Home />} /> */}
+          <div>
+            <NavBar />
+            <Route path='/inform' render={() => <Inform />} />
+            <Route path='/connect' render={() => <Connect />} />
+            <Route path='/reduce' render={() => <Reduce />} />
+            <Route path='/tech' render={() => <Tech />} />
+            <Route path='/rescue' render={() => <Rescue />} />
+            <Route path='/collab' render={() => <Collab />} />
+            <Route path='/login' render={() => <Login />} />
+            <Route path='/register' render={() => <Register />} />
+          </div>
+        </Switch>
+      </Provider>
+    </BrowserRouter>
+  );
+};
 
 export default App;

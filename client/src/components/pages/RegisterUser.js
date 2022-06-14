@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alert";
 import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
 
-const Register = ({ setAlert, register }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -14,20 +14,25 @@ const Register = ({ setAlert, register }) => {
 
   const { username, email, password } = formData;
 
-  const onChange = (e) =>{
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  }
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     register({ username, email, password });
   };
 
+  //redirect if registered and logged in
+  if (isAuthenticated) {
+    return <Redirect to='/inform' />;
+  }
+
   return (
     <section className='container'>
       <h1 className=''>Sign Up</h1>
       <p className=''>Create Your Account</p>
-      <form onSubmit={e=>onSubmit(e)}>
+      <form onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <input
             type='text'
@@ -70,6 +75,12 @@ const Register = ({ setAlert, register }) => {
 Register.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
 
-export default connect(null, { setAlert, register })(Register);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);

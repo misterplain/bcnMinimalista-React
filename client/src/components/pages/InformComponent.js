@@ -21,7 +21,7 @@ const validationSchema = Yup.object({
   link: Yup.string().min(1, "Required").required("Required"),
 });
 
-const Inform = ({ postFavorite }) => {
+const Inform = (props) => {
   Modal.setAppElement(document.getElementById("root"));
   const [modalOneIsOpen, setModalOneIsOpen] = useState(false);
   const [modalTwoIsOpen, setModalTwoIsOpen] = useState(false);
@@ -92,7 +92,13 @@ const Inform = ({ postFavorite }) => {
                     </p>
                   </a>
                 </div>
-                <Button outline color='primary'>
+                 <Button
+                  onClick={() => {
+                    props.addFavorite(inform.id);
+                  }}
+                  className='inform__fav-btn'
+                  outline
+                >
                   <i className='fa fa-heart' />
                 </Button>
               </div>

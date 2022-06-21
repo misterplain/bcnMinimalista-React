@@ -24,34 +24,34 @@ export const getFavorites = () => async (dispatch) => {
     });
   }
 };
-//add favorites
-export const addFavorite =
-  (id) => async (dispatch) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const body = JSON.stringify({ id });
-    try {
-      const res = await axios.post("http://localhost:8000/v1/api/favorites", body, config);
-      dispatch({
-        type: ADD_FAVORITE,
-        payload: res.data,
-      });
-      dispatch(setAlert("Favorite added", "success"));
-    } catch (err) {
-      dispatch({
-        type: ADD_FAVORITE_FAIL,
-        payload: err.response.data.msg,
-      });
-      dispatch(setAlert("Favorite not added", "danger"));
-    }
-  };
+//add post to user favorites
+export const addFavorite = (id) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `http://localhost:8000/v1/api/favorites/${id}`,
+      { id },
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+    );
+    dispatch({
+      type: ADD_FAVORITE,
+      payload: res.data,
+    });
+    dispatch(setAlert("Favorite Added", "success"));
+  } catch (err) {
+    dispatch({
+      type: ADD_FAVORITE_FAIL,
+      payload: err.response.data.msg,
+    });
+    dispatch(setAlert(err.response.data.msg, "danger"));
+  }
+};
+
 //remove favorites
 export const removeFavorite = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`http://localhost:8000/v1/api/favorites/${id}`);
+    const res = await axios.delete(
+      `http://localhost:8000/v1/api/favorites/${id}`
+    );
     dispatch({
       type: REMOVE_FAVORITE,
       payload: res.data,

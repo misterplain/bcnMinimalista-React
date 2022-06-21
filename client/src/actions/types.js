@@ -16,3 +16,12 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 
 //logout
 export const LOGOUT = "LOGOUT";
+
+//favorites
+export const ADD_FAVORITE = "ADD_FAVORITE";
+export const ADD_FAVORITE_FAIL = "ADD_FAVORITE_FAIL";
+export const GET_FAVORITES = "GET_FAVORITES";
+export const GET_FAVORITES_FAIL = "GET_FAVORITES_FAIL";
+export const REMOVE_FAVORITE = "REMOVE_FAVORITE";
+export const REMOVE_FAVORITE_FAIL = "REMOVE_FAVORITE_FAIL";
+

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Button } from "reactstrap";
 import { INFORM } from "../../shared/inform";
 import Footer from "../ui/Footer";
 import Modal from "react-modal/lib/components/Modal";
@@ -6,6 +7,11 @@ import Modal from "react-modal/lib/components/Modal";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+//redux
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { addFavorite } from "../../actions/favorites";
+
 import "../../styles/components/InformComponent.css";
 
 const inform = INFORM;
@@ -15,7 +21,7 @@ const validationSchema = Yup.object({
   link: Yup.string().min(1, "Required").required("Required"),
 });
 
-const Inform = (props) => {
+const Inform = ({ postFavorite }) => {
   Modal.setAppElement(document.getElementById("root"));
   const [modalOneIsOpen, setModalOneIsOpen] = useState(false);
   const [modalTwoIsOpen, setModalTwoIsOpen] = useState(false);
@@ -86,6 +92,9 @@ const Inform = (props) => {
                     </p>
                   </a>
                 </div>
+                <Button outline color='primary'>
+                  <i className='fa fa-heart' />
+                </Button>
               </div>
             );
           })}
@@ -239,4 +248,12 @@ const Inform = (props) => {
   );
 };
 
-export default Inform;
+Inform.propTypes = {
+  addFavorite: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  addFavorite: state.postFavorite,
+});
+
+export default connect(mapStateToProps, { addFavorite })(Inform);

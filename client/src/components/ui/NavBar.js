@@ -14,13 +14,22 @@ const NavBar = ({ auth: { isAuthenticated, loading }, logout }) => {
     setIsOpen(!isOpen);
   };
   const authLinks = (
-    <NavLink
-      onClick={logout}
-      className='navbar__navitem auth-button'
-      to='/inform'
-    >
-      Logout
-    </NavLink>
+    <>
+      <NavLink
+        
+        className='navbar__navitem'
+        to='/favorites'
+      >
+        Favorites
+      </NavLink>
+      <NavLink
+        onClick={logout}
+        className='navbar__navitem auth-button'
+        to='/inform'
+      >
+        Logout
+      </NavLink>
+    </>
   );
 
   const guestLinks = (
@@ -30,14 +39,22 @@ const NavBar = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
 
   return (
-    <Navbar expand='md' sticky='top' className='navbar-container' style={{display: 'flex'}}>
+    <Navbar
+      expand='md'
+      sticky='top'
+      className='navbar-container'
+      style={{ display: "flex" }}
+    >
       <NavbarToggler
         className='navbar__toggler fa fa-bars fa-border-none'
         onClick={toggleNavbar}
       />
 
       <Collapse isOpen={isOpen} navbar>
-        <div className={!isOpen ? 'navbar__nav' : 'navbar__nav-collapse'} style={{flexDirection: isOpen ? 'column' : 'row'}}>
+        <div
+          className={!isOpen ? "navbar__nav" : "navbar__nav-collapse"}
+          style={{ flexDirection: isOpen ? "column" : "row" }}
+        >
           <NavLink className='navbar__navitem' to='/inform'>
             inform
           </NavLink>

@@ -10,6 +10,7 @@ import Reduce from "./components/pages/ReduceComponent";
 import Tech from "./components/pages/TechComponent";
 import Rescue from "./components/pages/RescueComponent";
 import Collab from "./components/pages/CollabComponent";
+import Favorites from './components/pages/FavoritesComponent';
 import Jumbo from "./components/ui/Jumbotron";
 import NavBar from "./components/ui/NavBar";
 import Login from "./components/pages/LoginUser";
@@ -50,6 +51,7 @@ const App = () => {
             <Route path='/tech' render={() => <Tech />} />
             <Route path='/rescue' render={() => <Rescue />} />
             <Route path='/collab' render={() => <Collab />} />
+            <Route path='/favorites' render={() => <Favorites />} />
             <Route path='/login' render={() => <Login />} />
             <Route path='/register' render={() => <Register />} />
           </div>

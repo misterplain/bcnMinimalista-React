@@ -2,9 +2,10 @@ import React from "react";
 //redux
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import {getFavorites} from '../../actions/favorites';
 import "../../styles/components/FavoritesComponent.css";
 
-const Favorites = (props) => {
+const Favorites = ({getFavorites}) => {
   return (
     <div className='favorites__title'>
       <p className='favorites__title-text'>my favorites</p>

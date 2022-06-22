@@ -122,7 +122,17 @@ const Inform = (props) => {
                     </p>
                   </a>
                 </div>
+                <Button
+                  onClick={() => {
+                    props.addFavorite(inform._id);
+                  }}
+                  className='inform__fav-btn'
+                  outline
+                >
+                  <i className='fa fa-heart' />
+                </Button>
               </div>
+              
             );
           })}
         </div>

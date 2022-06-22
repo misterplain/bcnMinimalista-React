@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
 const { check, validationResult } = require("express-validator");
-
+const mongoTypes = require("mongoose").Types;
 const User = require("../models/user");
 const Blog = require("../models/blog");
 const Favorite = require("../models/favorite");
+const { default: mongoose } = require("mongoose");
 
 
 //@route Get  /
@@ -14,6 +15,7 @@ const Favorite = require("../models/favorite");
 router.get("/", auth, async (req, res) => {
     try {
       const favorites = await Favorite.find({ user: req.user.id });
+     
       res.json(favorites);
     } catch (err) {
       console.error(err.message);
@@ -30,8 +32,10 @@ router.get("/", auth, async (req, res) => {
       return res.status(400).json({ errors: errors.array() });
     }
     try {
-      const user = await User.findById(req.user.id).select("-password");
-      const blog = await Blog.findById(req.params.id);
+      const user = await User.findOne({_id: mongoose.Types.ObjectId(req.body.body)}).select("-password");
+    
+      //const blog = await Blog.findById(req.body.body);
+      console.log(user);
       const newFavorite = new Favorite({
         user: user,
         blog: blog,

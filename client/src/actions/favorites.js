@@ -27,10 +27,10 @@ export const getFavorites = () => async (dispatch) => {
 //add post to user favorites
 export const addFavorite = (id) => async (dispatch) => {
   try {
+   
     const res = await axios.post(
       `http://localhost:8000/v1/api/favorites/${id}`,
-      { id },
-      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      {  body: id }
     );
     dispatch({
       type: ADD_FAVORITE,

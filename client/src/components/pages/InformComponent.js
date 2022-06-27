@@ -26,7 +26,7 @@ const Inform = (props) => {
   const [modalOneIsOpen, setModalOneIsOpen] = useState(false);
   const [modalTwoIsOpen, setModalTwoIsOpen] = useState(false);
   const [blogPost, setBlogPost] = useState([]);
-
+  console.log({ props });
   const fetchBlogPosts = () => {
     axios
       .get(`${process.env.REACT_APP_API}/v1/api/blog`)
@@ -38,6 +38,22 @@ const Inform = (props) => {
         alert("Error in fetching Blog Post Info", error);
       });
   };
+
+  const addFavorite = (blogId) => {
+    axios.post(
+      `${process.env.REACT_APP_API}/v1/api/favorites`,
+      {
+        blog: blogId, // req.body.blog
+      },
+      {
+        headers: {
+          'x-auth-token': localStorage.getItem('token'),
+        }
+      }
+    )
+      .then((data) => console.log({ data }))
+      .catch((e) => console.log(e));
+  }
 
   useEffect(() => {
     fetchBlogPosts();
@@ -92,10 +108,8 @@ const Inform = (props) => {
                     </p>
                   </a>
                 </div>
-                 <Button
-                  onClick={() => {
-                    props.addFavorite(inform.id);
-                  }}
+                <Button
+                  onClick={() => addFavorite(inform.id)}
                   className='inform__fav-btn'
                   outline
                 >
@@ -123,16 +137,15 @@ const Inform = (props) => {
                   </a>
                 </div>
                 <Button
-                  onClick={() => {
-                    props.addFavorite(inform._id);
-                  }}
+                  onClick={() => addFavorite(inform._id)
+                  }
                   className='inform__fav-btn'
                   outline
                 >
                   <i className='fa fa-heart' />
                 </Button>
               </div>
-              
+
             );
           })}
         </div>

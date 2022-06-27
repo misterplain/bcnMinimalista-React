@@ -20,7 +20,16 @@ const userSchema = new Schema({
     admin: {
         type: Boolean,
         default: false
-    }
+    },
+    favorites: {
+        type: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Blog", // ref allows populate function to work properly, the function replaces id with its corresponding blog object
+            },
+        ],
+        default: []
+    },
 });
 
 const User = mongoose.model('User', userSchema);
